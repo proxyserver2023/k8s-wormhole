@@ -1,0 +1,28 @@
+# Example using an init container
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: init-container-example
+spec:
+  initContainers:
+    - name: init-db
+      image: busybox
+      command:
+        [
+          "sh",
+          "-c",
+          'echo -n "init container: waiting for database service..."; sleep 10; echo "done"',
+        ]
+  containers:
+    - name: main-app
+      image: nginx
+      ports:
+        - containerPort: 80
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+        requests:
+          memory: "64Mi"
+          cpu: "250m"

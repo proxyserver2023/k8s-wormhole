@@ -31,7 +31,7 @@ spec:
           memory: "100Mi"
       ports:
         - containerPort: 6379
-      volumeMounts:
+      volumeMounts:``
         - mountPath: /redis-master-data
           name: data
         - mountPath: /redis-master

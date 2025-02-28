@@ -1,0 +1,3 @@
+resources:
+  - cassandra-service.yaml
+  - cassandra-statefulset.yaml

@@ -1,0 +1,1 @@
+{ mariadb.auth.database: user0db2, mariadb.auth.username: user0 }

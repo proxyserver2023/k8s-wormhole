@@ -1,0 +1,29 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: net-server
+  labels:
+    app: net-server
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: net-server
+  template:
+    metadata:
+      labels:
+        app: net-server
+    spec:
+      containers:
+        - name: net-server
+          image: busybox
+          # This command runs netcat in a loop, listening on port 8080
+          command: ["sh", "-c", "while true; do nc -lk -p 8080; done"]
+          resources:
+            limits:
+              cpu: 200m
+              memory: 256Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi

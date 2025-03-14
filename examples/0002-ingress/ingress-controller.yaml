@@ -1,0 +1,24 @@
+apiVersion: v1
+
+kind: Service
+
+metadata:
+  name: my-ingress-controller
+  namespace: ingress
+  labels:
+    app.kubernetes.io/name: ingress-controller
+    app.kubernetes.io/component: controller
+spec:
+  type: LoadBalancer
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP
+    - name: https
+      port: 443
+      targetPort: https
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: ingress-controller
+    app.kubernetes.io/component: controller

@@ -1,0 +1,44 @@
+apiVersion: v1
+
+kind: Service
+
+metadata:
+  name: service-a
+spec:
+  selector:
+    app: app-a
+  ports:
+    - protocol: TCP
+      port: 8002
+      targetPort: 80
+  type: NodePort
+---
+apiVersion: v1
+
+kind: Service
+
+metadata:
+  name: service-b
+spec:
+  selector:
+    app: app-b
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+  clusterIP: 10.96.200.1 # Virtual IP address for the service
+
+---
+apiVersion: v1
+kind: Endpoints
+metadata:
+  name: service-a
+subsets:
+  - addresses:
+      - ip: 10.96.200.1
+      - ip: 10.96.200.2
+    ports:
+      - port: 80
+        protocol: TCP
+        name: http

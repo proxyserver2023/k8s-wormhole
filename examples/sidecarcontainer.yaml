@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: sidecar-container
+spec:
+  containers:
+    - name: main
+      image: nginx
+      ports:
+        - containerPort: 80
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
+    - name: sidecar
+      image: busybox
+      command:
+        [
+          "sh",
+          "-c",
+          'while true; do echo "$(date) - Hello from the sidecar container" >> /var/log/index.html; sleep 10; done;',
+        ]
+      resources:
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+        requests:
+          memory: "64Mi"
+          cpu: "250m"
